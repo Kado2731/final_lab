@@ -1,0 +1,29 @@
+---
+- name: install packages
+  hosts: dev,test
+  become: true
+  tasks:
+    - name: Ensure vsftpd and maridb-server is installed
+      yum:
+        name:
+          - vsftpd
+          - mariadb-server
+        state: present
+
+- name: install packages in prod
+  hosts: prod
+  become: true
+  tasks:
+    - name: Ensure RPM development tools is installed
+      yum:
+        name: "@Development tools"
+        state: present
+
+- name: update all packages in dev
+  hosts: dev
+  become: true
+  tasks:
+    - name: update all packages
+      yum:
+        name: '*'
+        state: latest 
