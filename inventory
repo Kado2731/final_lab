@@ -1,0 +1,11 @@
+[dev]
+node1
+
+[test]
+node2
+
+[prod]
+test3
+
+[webservers:children]
+prod
