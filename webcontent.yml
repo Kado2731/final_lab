@@ -1,0 +1,29 @@
+---
+- name: Create webcontent
+  hosts: dev
+  become: true
+
+  tasks:
+    - name: ensure devops3 group exist
+      group:
+        name: devops3
+        state: present
+
+    - name: ensure /devweb3 folder exist
+      file:
+        path: /devweb3
+        state: directory
+        mode: '2775'
+        group: devops3
+        setype: httpd_sys_content_t
+
+    - name: create index.html
+      copy:
+        content: "Development"
+        dest: /devweb3/index.html
+
+    - name: Link /devweb3
+      file:
+        src: /devweb3
+        dest: /var/www/html/devweb3
+        state: link
