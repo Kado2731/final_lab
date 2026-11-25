@@ -1,0 +1,26 @@
+---
+- name: Create Repo
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: BaseOS
+      yum_repository:
+        name: BaseOS
+        description: BaseOS
+        file: mylocal_repo
+        baseurl: file:///mnt/temp_repository/BaseOS
+        gpgcheck: no
+        enabled: yes
+        #gpgkey: https
+        #
+    - name: AppStream
+      yum_repository:
+        name: AppStream
+        description: AppStream
+        file: mylocal_repo
+        baseurl: file:///mnt/temp_repository/AppStream
+        gpgcheck: no
+        enabled: yes
+        #gpgkey
