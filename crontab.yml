@@ -1,0 +1,14 @@
+---
+- name: cron
+  hosts: all
+  
+  tasks:
+    - name: cronjob
+      cron:
+        name: cron
+        weekday: "*"
+        minute: "*/2"
+        hour: "*"
+        user: redhat
+        job: logger "EX294 in progress"
+
