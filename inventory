@@ -5,7 +5,7 @@ node1
 node2
 
 [prod]
-test3
+node3
 
 [webservers:children]
 prod
