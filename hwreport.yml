@@ -1,0 +1,35 @@
+---
+- name: generate hwreport
+  hosts: all
+  gather_facts: true
+
+  tasks:
+    #- name: get url
+    #  get_url:
+    #    url: http
+    #    dest: /root/hwreport.txt
+
+    - name: copy hwreport
+      copy:
+        src: hwreport.empty
+        dest: /root/hwreport_new.txt
+
+    - name: replace values
+      replace:
+        path: /root/hwreport_new.txt
+        regexp: '{{ item.oldvalue }}'
+        replace: '{{ item.newvalue }}'
+
+      loop:
+        - oldvalue: hostname
+          newvalue: "{{ ansible_hostname }}"
+        - oldvalue: biosversion
+          newvalue: "{{ ansible_bios_version }}"
+        - oldvalue: memory
+          newvalue: "{{ ansible_memtotal_mb }}"
+        - oldvalue: sdasize
+          newvalue: "{{ ansible_devices.sda.size }}"
+        - oldvalue: sdbsize
+          newvalue: "{{ ansible_devices.sdb.size }}"
+
+
