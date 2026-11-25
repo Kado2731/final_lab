@@ -1,0 +1,23 @@
+---
+- name: issue
+  hosts: all
+  become: true
+
+  tasks:
+    - name: content 1 for dev
+      copy:
+        content: "this is Development"
+        dest: /etc/issue
+      when: inventory_hostname in groups['dev']
+
+    - name: content 2 for test
+      copy:
+        content: "This is Test"
+        dest: /etc/issue
+      when: inventory_hostname in groups['test']
+
+    - name: content 3 for prod
+      copy:
+        content: "This is Production"
+        dest: /etc/issue
+      when: inventory_hostname in groups['prod']
